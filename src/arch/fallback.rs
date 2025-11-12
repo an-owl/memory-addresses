@@ -12,12 +12,16 @@ pub struct VirtAddr(usize);
 
 impl_address!(VirtAddr, usize, as_usize);
 
+impl crate::VirtualAddress for VirtAddr {}
+
 /// A physical memory address.
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct PhysAddr(usize);
 
 impl_address!(PhysAddr, usize, as_usize);
+
+impl crate::PhysicalAddress for PhysAddr {}
 
 /// An invalid virtual address
 pub struct VirtAddrNotValid(pub usize);
