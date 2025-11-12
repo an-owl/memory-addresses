@@ -4,6 +4,7 @@
 
 use core::fmt;
 use core::fmt::Debug;
+use core::num::NonZero;
 use core::ops::{
     Add, AddAssign, BitAnd, BitAndAssign, BitOr, BitOrAssign, BitXor, BitXorAssign, Not, Shl,
     ShlAssign, Shr, ShrAssign, Sub, SubAssign,
@@ -152,6 +153,16 @@ impl<T: MemoryAddress> Iterator for AddrIter<T> {
         }
     }
 }
+
+/// A marker trait for virtual memory address types.
+///
+/// A type can implement both this and [PhysicalAddress] to indicate that it is either an identity
+/// mapped address or used in an environment where paging is not used.
+/// Types that do this must ensure that it is never an invalid physical or virtual address.
+pub trait VirtualAddress: MemoryAddress {}
+
+/// A marker trait for physical address types.
+pub trait PhysicalAddress: MemoryAddress {}
 
 #[cfg(test)]
 mod tests {
